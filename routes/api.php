@@ -34,9 +34,19 @@ Route::prefix('users')->middleware('auth:sanctum')->group(function () {
 });
 
 // Department and role management routes
+
 Route::prefix('departments')->middleware('auth:sanctum')->group(function () {
+    // Assign a role to a user in a department
     Route::post('{department}/users/{user}/roles', [DepartmentUserRoleController::class, 'assignRoleToUser']);
+
+    // Get all users in a department with their roles
     Route::get('{department}/users', [DepartmentUserRoleController::class, 'getUsersInDepartment']);
+
+    // Update a user's role in a department
+    Route::put('{department}/users/{user}/roles', [DepartmentUserRoleController::class, 'updateRoleOfUser']);
+
+    // Remove a user from a department
+    Route::delete('{department}/users/{user}', [DepartmentUserRoleController::class, 'removeUserFromDepartment']);
 });
 
 Route::apiResource('departments', DepartmentController::class)->middleware('auth:sanctum');
@@ -47,6 +57,7 @@ Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [SupplierController::class, 'index']);
     Route::post('/', [SupplierController::class, 'store']);
     Route::put('{id}', [SupplierController::class, 'update']);
+    Route::delete('{id}', [SupplierController::class, 'destroy']);
     Route::patch('{id}/status', [SupplierController::class, 'updateStatus']);
     Route::post('upload', [SupplierController::class, 'uploadFile']);
 });

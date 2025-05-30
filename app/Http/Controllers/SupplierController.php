@@ -141,6 +141,34 @@ class SupplierController extends Controller
             'data' => $supplier
         ], 200);
     }
+    // ✅ 3. Delete Supplier Permanently
+    public function destroy($id)
+    {
+        $supplier = Supplier::find($id);
+
+        if (!$supplier) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Supplier not found'
+            ], 404);
+        }
+
+        try {
+            $supplier->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Supplier deleted successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete supplier',
+                'details' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function uploadFile(Request $request)
     {
         // Validate if a file is uploaded

@@ -164,7 +164,7 @@ class TransactionHeaderController extends Controller
         $transactionHeader = TransactionHeader::findOrFail($id);
 
         $validated = $request->validate([
-            'status' => 'required|string|in:For Approval,For Review,Approved,Rejected,Cancelled',
+            'status' => 'required|string|in:For Approval,For Review,Approved,Rejected,Cancelled,Interfaced',
             'approved_by' => 'nullable|exists:users,id',
             'review_by' => 'nullable|exists:users,id',
         ]);
