@@ -31,7 +31,6 @@ class UserDashboardController extends Controller
         if ($isAdmin) {
             // Admin sees all
         } elseif ($isAccounting) {
-
             // Accounting sees transactions from their department
             $transactionQuery->where('department_id', $user->department_id);
         } else {
@@ -53,7 +52,7 @@ class UserDashboardController extends Controller
 
         // Monthly stats for last 6 months
         $monthlyStatsQuery = TransactionHeader::select(
-            DB::raw('DATE_FORMAT(created_at, "%b %Y") as month'),
+            DB::raw("FORMAT(created_at, 'MMM yyyy') as month"),
             'status',
             DB::raw('count(*) as count')
         )
@@ -69,8 +68,9 @@ class UserDashboardController extends Controller
                 }
             })
             ->where('created_at', '>=', now()->subMonths(6))
-            ->groupBy('month', 'status')
-            ->orderBy('month');
+            ->groupBy(DB::raw("FORMAT(created_at, 'MMM yyyy')"), 'status')
+            ->orderBy(DB::raw("FORMAT(created_at, 'MMM yyyy')"))
+        ;
 
         $monthlyStats = $monthlyStatsQuery->get()
             ->groupBy('status')
@@ -85,5 +85,4 @@ class UserDashboardController extends Controller
             'monthly_stats' => $monthlyStats,
         ]);
     }
-
 }
