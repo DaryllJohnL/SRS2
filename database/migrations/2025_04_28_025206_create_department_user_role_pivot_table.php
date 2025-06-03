@@ -13,7 +13,8 @@ class CreateDepartmentUserRolePivotTable extends Migration
             $table->foreignId('department_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('role_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+            $table->datetime('created_at')->nullable();
+            $table->datetime('updated_at')->nullable();
 
             // Add unique constraint to ensure no duplicate user-role-department entries
             $table->unique(['department_id', 'user_id', 'role_id']);

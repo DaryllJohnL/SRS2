@@ -17,11 +17,15 @@ return new class extends Migration {
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('api_token');
         });
     }
-
 };

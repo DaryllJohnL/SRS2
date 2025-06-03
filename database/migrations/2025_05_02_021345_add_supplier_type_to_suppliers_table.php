@@ -15,7 +15,8 @@ return new class extends Migration {
             $table->string('supplier_contact_person')->nullable();
             $table->string('supplier_type')->nullable(); // Corrected: moved here without `after()`
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->timestamps();
+            $table->datetime('created_at')->nullable();
+            $table->datetime('updated_at')->nullable();
         });
     }
 

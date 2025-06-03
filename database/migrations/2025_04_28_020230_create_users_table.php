@@ -9,19 +9,33 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->datetime('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
-            $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('set null'); // <-- Added this line
-            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
-            $table->timestamp('created_date')->useCurrent();
-            $table->timestamp('last_update_date')->useCurrent()->useCurrentOnUpdate();
+
+            $table->foreignId('role_id')
+                ->constrained('roles')
+                ->onDelete('cascade');
+
+            $table->foreignId('department_id')
+                ->nullable()
+                ->constrained('departments')
+                ->onDelete('set null');
+
+            $table->foreignId('created_by')
+                ->nullable()
+                ->constrained('users')
+                ->onDelete('set null');
+
+            // Use datetime instead of timestamp for SQL Server compatibility
+            $table->datetime('created_date')->default(DB::raw('GETDATE()'));
+            $table->datetime('last_update_date')->default(DB::raw('GETDATE()'));
+
             $table->rememberToken();
-            // NOTE: Removed Laravel's default created_at and updated_at para customized ang fields natin
         });
     }
 

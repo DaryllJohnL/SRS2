@@ -11,7 +11,8 @@ return new class extends Migration {
             $table->id();
             $table->string('rebate_code')->unique();  // Ensure rebate_code is unique
             $table->string('rebate_name');
-            $table->timestamps();
+            $table->datetime('created_at')->nullable();
+            $table->datetime('updated_at')->nullable();
         });
     }
 

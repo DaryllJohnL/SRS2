@@ -29,7 +29,8 @@ class CreateTransactionHeadersTable extends Migration
             $table->date('approve_date')->nullable();
             $table->string('status');
 
-            $table->timestamps();
+            $table->datetime('created_at')->nullable();
+            $table->datetime('updated_at')->nullable();
         });
     }
 

@@ -13,7 +13,8 @@ return new class extends Migration {
             $table->string('bank_name');
             $table->string('bank_address')->nullable();
             $table->string('contact_number')->nullable();
-            $table->timestamps();
+            $table->datetime('created_at')->nullable();
+            $table->datetime('updated_at')->nullable();
         });
     }
 

@@ -12,7 +12,8 @@ return new class extends Migration {
             $table->string('name')->unique();
             $table->string('description')->nullable();
             $table->string('data_type')->nullable(); // Optional if needed
-            $table->timestamps();
+            $table->datetime('created_at')->nullable();
+            $table->datetime('updated_at')->nullable();
         });
     }
 

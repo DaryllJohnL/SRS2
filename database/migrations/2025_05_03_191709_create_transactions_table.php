@@ -26,7 +26,8 @@ class CreateTransactionsTable extends Migration
             $table->date('transaction_reference_date')->nullable();
             $table->unsignedBigInteger('reference_type_id');
 
-            $table->timestamps();
+            $table->datetime('created_at')->nullable();
+            $table->datetime('updated_at')->nullable();
 
             // Foreign keys
             $table->foreign('bank_code_id')->references('id')->on('banks')->onDelete('cascade');
