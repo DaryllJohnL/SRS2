@@ -24,12 +24,12 @@ return new class extends Migration {
             $table->foreignId('department_id')
                 ->nullable()
                 ->constrained('departments')
-                ->onDelete('set null');
+                ->onDelete('no action');
 
             $table->foreignId('created_by')
                 ->nullable()
                 ->constrained('users')
-                ->onDelete('set null');
+                ->onDelete('no action');
 
             // Use datetime instead of timestamp for SQL Server compatibility
             $table->datetime('created_date')->default(DB::raw('GETDATE()'));
