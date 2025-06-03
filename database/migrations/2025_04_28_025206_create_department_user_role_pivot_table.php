@@ -15,10 +15,10 @@ class CreateDepartmentUserRolePivotTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('role_id');
 
-            // Use RESTRICT or SET NULL to avoid SQL Server multiple cascade path issue
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('restrict');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('restrict');
+            // Just define the foreign keys without cascade or restrict
+            $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('role_id')->references('id')->on('roles');
 
             $table->datetime('created_at')->nullable();
             $table->datetime('updated_at')->nullable();
