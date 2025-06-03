@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::table('transaction_headers', function (Blueprint $table) {
             $table->unsignedBigInteger('department_id')->nullable();
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('no action');
         });
     }
 
